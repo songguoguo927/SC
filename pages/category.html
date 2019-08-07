@@ -1,0 +1,261 @@
+<div>
+	<!-- 栏目管理 -->
+	<div class="category-manage">
+		<!-- 按钮组 -->
+		<div class="btns-div">
+			<button type="button" class="btn btn-success">新增</button>
+			<button type="button" class="btn btn-danger">批量删除</button>
+		</div>
+		<!-- 表格 -->
+		<div class="table-div">
+			<table class="table table-bordered text-center">
+			 	<thead>
+			 		<tr>
+						<th class="text-center">~</th>
+			 			<th class="text-center">编号</th>
+				 		<th class="text-center">名称</th>
+				 		<th class="text-center">父栏目</th>
+				 		<th class="text-center">描述</th>
+				 		<th class="text-center">操作</th>
+			 		</tr>
+			 	</thead>
+				<tbody>					
+				</tbody>
+			</table>
+		</div>
+
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <h4 class="modal-title" id="addModalLabel">添加栏目</h4>
+					</div>
+					<div class="modal-body">
+					  <form autocomplete="off">
+						<div class="form-group hidden">
+							<label for="recipient-name" class="control-label">栏目id</label>
+							<input type="text" class="form-control" id="cateId">
+						</div>
+						<div class="form-group">
+						  <label for="recipient-name" class="control-label">栏目名称</label>
+						  <input type="text" class="form-control" id="cateName">
+						</div>
+						
+						<div class="form-group">
+								<label for="cateParent" class="control-label">父栏目名称</label>
+								<select class="form-control" name="cateParent">
+										<option value>请选择</option>
+										<!-- 需要获取所有父栏目，追加节点 -->
+										<!-- <option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option> -->
+								</select>
+						</div>
+						<div class="form-group">
+						  <label for="message-text" class="control-label">描述</label>
+						  <textarea class="form-control" id="message-text"></textarea>
+						</div>
+					  </form>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					  <button type="button" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+	</div>
+	<script>		
+		// 写category的js
+		function init(){
+			findAll();
+		}
+		init();
+		function findAll() {  
+			$.ajax({
+			url:'http://134.175.154.93:8099/manager/category/findAllCategory',
+			method:'get',
+			data:null,
+			success:function(res){
+				console.log(res.data);
+				// 追加DOM
+				bindHtml(res.data)
+			},
+			error:function(error){
+				console.log(error);
+			}
+			})
+		}
+		function saveOrUpdate(data){
+			$.ajax({
+				url:"http://134.175.154.93:8099/manager/category/saveOrUpdateCategory ",
+				method:"post",
+				data:data,
+				success:function(res){
+					console.log(res)
+					// findAll()
+					window.location.reload();
+				},
+				error:function(error){
+					console.log(error)
+				}
+			})
+			
+		}
+		function batchDelete(data){
+			$.ajax({
+				url:"http://134.175.154.93:8099/manager/category/batchDeleteCategory",
+				method:"post",
+				data:data,
+				success:function(res){
+					console.log(res)
+					window.location.reload();
+					// findAll()
+				},
+				error:function(error){
+					console.log(error)
+				}
+			})
+		}
+		function deleteOne(data){
+			$.ajax({
+				url:"http://134.175.154.93:8099/manager/category/deleteCategoryById",
+				method:"get",
+				data:data,
+				success:function(res){
+					console.log(res)
+					// findAll()
+					window.location.reload();
+				},
+				error:function(error){
+					console.log(error)
+				}
+			})
+		}
+		var str = '';
+		var options = '<option value>请选择</option>';
+		function bindHtml(data){
+			data.forEach(function(item){
+				// item.id item.name item.parent.id item.comment
+				// item.parent.id = item.parent.id ?item.parent.id : null;
+				if(item.parent!=null){
+					str += `<tr data-id="${item.id}">
+						<td><input type="checkbox" value="${item.id}"></td>
+						<td>${item.id}</td>
+				 		<td>${item.name}</td>
+				 		<td>${item.parent.name}</td>
+				 		<td>${item.comment}</td>
+				 		<td>
+				 			<i title="编辑" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							<i title="删除" class="fa fa-trash-o" aria-hidden="true"></i>
+				 		</td>
+					</tr>`
+					options +=`<option value="${item.parent.id}">${item.parent.name}</option>`;
+				}else{
+					str += `<tr data-id="${item.id}">
+						<td><input type="checkbox" value="${item.id}"></td>
+						<td>${item.id}</td>
+				 		<td>${item.name}</td>
+				 		<td>${item.parent}</td>
+				 		<td>${item.comment}</td>
+				 		<td>
+				 			<i title="编辑" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							<i title="删除" class="fa fa-trash-o" aria-hidden="true"></i>
+				 		</td>
+					</tr>`
+				}
+				
+			})
+			$('.category-manage tbody').html(str)
+			$('select').html(options)
+		}
+		// console.log($('button').text())
+		$('button').click(function(e){
+			if(e.target.innerText=="新增"){
+				//清空上一次的输入
+				$(".modal #cateId").val(null)
+				$(".modal #cateName").val(null);
+				//获取下拉列表的值
+				$("select option:selected").text('请选择');
+				$(".modal textarea").val(null);
+				//弹出新增相关的模态框
+				$('#addModal').modal('show')
+			}
+			if(e.target.innerText=="批量删除"){
+				//获取所有被选中的checkbox对应的itemid
+				var checked = $('input[type=checkbox]:checked');
+				var checkedArr = Array.prototype.slice.call(checked);
+				// console.log(checkedArr)
+				var ids = [];
+				checkedArr.forEach(function(item){
+					ids.push(+item.value)
+				})
+				//期望传的表单数据 ids:1,2
+				var obj = {
+					ids:ids.toString()
+				}
+				console.log(obj)
+				batchDelete(obj)
+			}
+			if(e.target.innerText=="保存"){
+				//点击保存，获取表单中的数据，拼接成一个对象传给savaOrUpdate方法
+				var cateId = $(".modal #cateId").val()
+				var cateName = $(".modal #cateName").val();
+				//获取下拉列表的值
+				var cateParent=$("select option:selected").val();
+				var comment = $(".modal textarea").val();
+				console.log(cateName,cateParent,comment)
+				// if(cateName&&cateParent&&comment){
+					var obj = {
+						id:cateId,
+						name:cateName,
+						parent:{
+							name:cateParent
+						},
+						comment:comment
+					}
+					console.log(obj)
+					$("#addModal").modal('hide');
+					saveOrUpdate(obj)
+				// }
+				// else{alert("请填写完整")}
+			}
+		})	
+		$('.table-div table').click(function(e){
+			// console.log(e.target.title)
+			if(e.target.title=="编辑"){
+				console.log($(e.target).parent().parent()[0])
+				var $tr = $(e.target).parent().parent();
+				//点击修改，会将对应的一条数据展示在模态框中，同时模态框出现
+				var tds = Array.prototype.slice.call($tr.children())
+				// console.log(tds[3])
+				var id = tds[1].innerText;
+				// console.log(id)
+				$(".modal #cateId").val(tds[1].innerText)
+				$(".modal #cateName").val(tds[2].innerText)
+				//tds[3].innerText 文本对应的id
+				$("select option:selected").text(tds[3].innerText)
+				$(".modal textarea").val(tds[4].innerText)
+				$('#addModal').modal('show');
+				
+			}
+			if(e.target.title=="删除"){
+				var id = $(e.target).parent().parent()[0].getAttribute('data-id');
+				deleteOne({id:id})				
+			}
+		})
+		
+
+	</script>
+</div>
+
+
+<!-- 出现问题：点击单个删除 删除成功  也再次查询数据了，但该数据拿到后并没有被重新渲染 
+	解决方法：刷新页面 window.location.reload();
+	关于修改某条数据要求有对应id
+	解决方案：利用隐藏的表单也会提交--id 修改时记录
+-->
+
+
