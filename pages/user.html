@@ -1,4 +1,28 @@
 <!-- 用户管理 -->
 <div class="user-manage">
-	用户管理
+	<!-- 用户管理 -->
+	<div class="userlist"></div>
+		
+
+
+	<script>
+	$.ajax({
+		url:"http://134.175.154.93:8099/manager/user/findAllUser",
+		success:function(result){
+			console.log(result.data)
+			var userArr = result.data;
+			var str = '';
+			userArr.forEach(function(item){
+				str += `
+				<div class="user"><img src="./image/avatar-8.jpg" alt="" width="50">
+		<li><span>用户名:</span><span>${item.username}</span></li>
+		<li><span>真实姓名:</span><span>${item.nickname}</span></li>
+		<li><span>注册时间:</span><span>${item.regTime}</span></li>
+		<li><span>email:</span><span>${item.email}</span></li>
+		<li><span>状态:</span><span>${item.enabled}</span></li>	</div>`
+			})
+			$('.userlist').html(str)
+		}
+	})
+	</script>
 </div>

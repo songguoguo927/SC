@@ -3,13 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>看点资讯</title>
-	   <link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="image/favicon.ico">
 	<link rel="stylesheet" href="./css/bootstrap-3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/index.css">
 	<!-- 引入font-awesome -->
 	<link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<!-- 引入jQuery -->
 	<script src="./js/jquery-3.4.1.min.js"></script>
+	<script src="./js/echarts.min.js"></script>
 	<!-- 引入外部js,在jQuery之后引入 -->
 	<script src="./js/index.js"></script>
 	<!-- 引入封装的ajax
@@ -21,29 +22,29 @@
 	<!-- 左侧 -->
 	<div class="info-left">
 		<header>
-			<img src="./images/logo.png" alt="">
-			<span>看点资讯</span>
+			<img src="./image/bilibili.svg" alt="">
+			<span>hotPoint</span>
 		</header>
 		<!-- 左侧导航 -->
 		<nav>
 			<ul>
 				<li>
-					<i class="fa fa-h-square" aria-hidden="true"></i>
+					<i class="glyphicon glyphicon-home" aria-hidden="true"></i>
 					首页
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
 				<li>
-					<i class="fa fa-h-square" aria-hidden="true"></i>
+					<i class="glyphicon glyphicon-align-left" aria-hidden="true"></i>
 					栏目管理
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
 				<li>
-					<i class="fa fa-h-square" aria-hidden="true"></i>
+					<i class="glyphicon glyphicon-film" aria-hidden="true"></i>
 					资讯管理
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
 				<li>
-					<i class="fa fa-h-square" aria-hidden="true"></i>
+					<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
 					用户管理
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
@@ -53,11 +54,51 @@
 	<!-- 右侧 -->
 	<div class="info-right">
 		<header>
-			右侧头部
+			<form class="navbar-form navbar-left word-spacing" role="search">
+				<i class="glyphicon glyphicon-menu-hamburger"></i>
+				<i class="glyphicon glyphicon-search"></i>
+				<div class="form-group">
+				  <input type="text" class="form-control" placeholder="Search">
+				</div>
+			  </form>
+			  <div class="head-right text-right word-spacing">
+					<i class="glyphicon glyphicon-bell"></i>
+					<i class="glyphicon glyphicon-envelope"></i>
+					<div class="dropdown">
+						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							Dropdown
+							<span class="glyphicon glyphicon-menu-down"></span>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						  </ul>
+					  </div>
+				  <img src="./image/avatar-8.jpg" alt="admin avatar" width="50" class="img-circle avat-img">
+			  </div>
 		</header>
 		<div class="info-content">
 		</div>
+		<!-- Page Footer-->
+		<footer class="main-footer">
+				<div class="container-fluid">
+				  <div class="row">
+					<div class="col-sm-6">
+					  <p>jiam &copy; 2017-2019</p>
+					</div>
+					<div class="col-sm-6 text-right">
+					  <p><a href="http://www.cssmoban.com/" title="网页模板" target="_blank">cssmoban</a></p>
+					  <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+					</div>
+				  </div>
+				</div>
+		</footer>
 	</div>
+
+	 
 </body>
 </html>
 

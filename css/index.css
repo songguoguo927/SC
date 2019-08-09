@@ -8,11 +8,21 @@
 article,nav,header,img{
 	display: block;
 }
+html{
+	overflow: hidden;
+}
 html,body{
 	height: 100%;
 }
+li{
+	list-style: none;
+}
 body{
 	display: flex;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+::-webkit-scrollbar { /* 血槽宽度 */ 
+ width: 8px; height: 8px; 
 }
 /*左侧*/
 .info-left{
@@ -21,23 +31,29 @@ body{
 /*右侧*/
 .info-right{
 	flex: 1;
+	background: hsl(200,50%,27%);
+	color: white
 }
 /*头部*/
 .info-left>header,.info-right>header{
 	height: 60px;
-	background-color: #ccc;
+	/* border-bottom:1px solid #ccc; */
 }
 .info-right .info-content{
-	height: calc(100% - 60px);
+	height: calc(100% - 100px);
+	width: calc(100vw - 300px);
+	/* overflow: auto;	 */
+	/* background: white; */
 	overflow: auto;
-	padding: 10px;
+	margin: 10px auto;
+	
 }
 /*左侧头部*/
 .info-left>header{
-	background-color: #3d556d;
+	background-color: #333;
 	line-height: 60px;
 	font-size:20px;
-	color: white;
+	color: #6777EF;
 }
 .info-left>header img{
 	float: left;
@@ -48,17 +64,19 @@ body{
 /*nav*/
 .info-left nav{
 	height: calc(100% - 60px);
-	border-right:1px solid #ccc;
+	/* border-right:1px solid #ccc; */
+	background: hsl(189,70%,27%);
+color: white;
 }
 .info-left li{
 	line-height: 30px;
 	padding:5px 10px;
-	border-bottom:1px solid #ccc;
+	/* border-bottom:1px solid #ccc; */
 	cursor:pointer;
 }
 .info-left li:hover{
-	color:#3d556d;
-	background-color: #ccc;
+	/* color:#3d556d; */
+	background-color: hsl(200,50%,27%);
 }
 .info-left li i:first-child{
 	margin-right:10px;
@@ -66,6 +84,19 @@ body{
 .info-left li i:last-child{
 	float: right;
 	line-height: 30px;
+}
+/***/
+.dropdown,.avat-img{
+	display: inline-block;
+}
+.head-right{
+	line-height: 60px;
+	padding-right: 20px;
+	/* border-bottom:1px solid #ccc; */
+
+}
+.word-spacing{
+	word-spacing: 10px;
 }
 /*表格div*/
 .table-div{
@@ -80,11 +111,54 @@ body{
 	margin-right:0px;
 }
 .table-div td i[title=编辑]{
-	color:#5cb85c;
+	color:hsl(159,80%,50%);
 }
 .table-div td i[title=删除]{
-	color:#c9302c;
+	color:hsl(0,52%,50%);
 }
 
+.category-manage{
+	padding: 10px;
+	height: 570px;
+	color: white;
 
-
+}
+.paginate *{
+	display: inline-block;
+}
+.paginate button{
+	background: transparent;
+	margin: auto 3px;
+}
+.btn-primary{
+	background: hsl(159,75%,30%);
+border: none;
+}
+.home{
+	background: white;
+    border-radius: 10px;	
+	display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+	padding-bottom:20px;
+	padding-top:20px;
+}
+.home #main1{
+	flex:1 600px;
+}
+.home #main2{
+	flex:1 600px;
+}
+.home #main3{
+	flex:1 600px;
+}
+#addModal{
+	color:black;
+}
+.userlist{
+	display: flex;
+	flex-wrap: wrap;
+}
+.user {
+    flex: 1 200px;
+}

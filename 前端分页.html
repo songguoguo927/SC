@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>测试图标字体</title>
+    <style>
+      .icon {
+        font-family: "字魂79号-萌趣奶油体";
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var arr = [
+        {
+          id: 7248,
+          name: "123",
+          comment: "13",
+          no: null,
+          parent: {
+            id: 7191,
+            name: "大V",
+            comment: "地方",
+            no: null,
+            parentId: 7229
+          }
+        },
+        {
+          id: 7251,
+          name: "熊大",
+          comment: "砍树",
+          no: 2,
+          parent: {
+            id: 7248,
+            name: "123",
+            comment: "13",
+            no: null,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7253,
+          name: "熊二",
+          comment: "砍树",
+          no: 2,
+          parent: {
+            id: 7251,
+            name: "熊大",
+            comment: "砍树",
+            no: 2,
+            parentId: 7248
+          }
+        },
+        {
+          id: 7254,
+          name: "123",
+          comment: "123",
+          no: 38,
+          parent: {
+            id: 7253,
+            name: "熊二",
+            comment: "砍树",
+            no: 2,
+            parentId: 7251
+          }
+        },
+        {
+          id: 7278,
+          name: "52",
+          comment: "52",
+          no: 71,
+          parent: {
+            id: 7278,
+            name: "52",
+            comment: "52",
+            no: 71,
+            parentId: 7278
+          }
+        },
+        {
+          id: 7288,
+          name: "123",
+          comment: "123",
+          no: 27,
+          parent: {
+            id: 7288,
+            name: "123",
+            comment: "123",
+            no: 27,
+            parentId: 7288
+          }
+        },
+        {
+          id: 7308,
+          name: "5201314",
+          comment: "1313134",
+          no: 2,
+          parent: {
+            id: 7308,
+            name: "5201314",
+            comment: "1313134",
+            no: 2,
+            parentId: 7308
+          }
+        },
+        {
+          id: 7312,
+          name: "liu1",
+          comment: "asdsadsss",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7317,
+          name: "1",
+          comment: "1",
+          no: 1,
+          parent: {
+            id: 6809,
+            name: "follow",
+            comment: "688",
+            no: 1,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7324,
+          name: "shangguan",
+          comment: "shangguan",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7342,
+          name: "dl-test",
+          comment: "this is a test",
+          no: null,
+          parent: {
+            id: 7133,
+            name: "test",
+            comment: "test",
+            no: 1,
+            parentId: null
+          }
+        },
+        {
+          id: 7344,
+          name: "dl-test",
+          comment: "content",
+          no: null,
+          parent: {
+            id: 7133,
+            name: "test",
+            comment: "test",
+            no: 1,
+            parentId: null
+          }
+        },
+        {
+          id: 7359,
+          name: "1",
+          comment: "",
+          no: 41,
+          parent: null
+        },
+        {
+          id: 7360,
+          name: "试试",
+          comment: "试试",
+          no: null,
+          parent: {
+            id: 6821,
+            name: "000",
+            comment: "000444如果对方个人头",
+            no: null,
+            parentId: null
+          }
+        },
+        {
+          id: 7367,
+          name: "1111",
+          comment: "111111",
+          no: null,
+          parent: {
+            id: 6809,
+            name: "follow",
+            comment: "688",
+            no: 1,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7368,
+          name: "",
+          comment: "",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7385,
+          name: "000",
+          comment: "000444",
+          no: null,
+          parent: {
+            id: 6809,
+            name: "follow",
+            comment: "688",
+            no: 1,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7386,
+          name: "hjjtest",
+          comment: "ggg",
+          no: 100,
+          parent: null
+        },
+        {
+          id: 7387,
+          name: "非人防",
+          comment: "辅导费",
+          no: null,
+          parent: {
+            id: 6809,
+            name: "follow",
+            comment: "688",
+            no: 1,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7400,
+          name: "美国",
+          comment: "America",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7401,
+          name: "中国1",
+          comment: "China",
+          no: null,
+          parent: {
+            id: 6809,
+            name: "follow",
+            comment: "688",
+            no: 1,
+            parentId: 7191
+          }
+        },
+        {
+          id: 7402,
+          name: "美国",
+          comment: "1010",
+          no: null,
+          parent: {
+            id: 7406,
+            name: "12354756",
+            comment: "5473465",
+            no: null,
+            parentId: 7401
+          }
+        },
+        {
+          id: 7406,
+          name: "12354756",
+          comment: "5473465",
+          no: null,
+          parent: {
+            id: 7401,
+            name: "中国1",
+            comment: "China",
+            no: null,
+            parentId: 6809
+          }
+        },
+        {
+          id: 7407,
+          name: "方式",
+          comment: "方式",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7408,
+          name: "丽娜",
+          comment: "123",
+          no: null,
+          parent: null
+        },
+        {
+          id: 7409,
+          name: "方法",
+          comment: "方式",
+          no: null,
+          parent: null
+        }
+      ];
+      console.log(arr.length); //26
+      function whichPage(n) {
+        var temp = [];
+        // temp.length = Math.ceil(arr.length/10)
+        // temp[0] = arr[0]->arr[9] 第一页
+        // temp[1] = arr[10]->arr[19] 第二页
+        // temp[2] = arr[20]->arr[26] 第三页
+        for (var i = (n - 1) * 10; i <= n * 10 - 1; i++) {
+          if (i > arr.length - 1) break;
+          temp.push(arr[i]);
+        }
+        return temp;
+      }
+      console.log(whichPage(1));
+      console.log(whichPage(2));
+      console.log(whichPage(3));
+    </script>
+  </body>
+</html>

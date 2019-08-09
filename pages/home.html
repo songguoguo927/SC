@@ -1,4 +1,260 @@
 <!-- 首页 -->
 <div class="home">
-	首页
+	<div id="main1" class="chart" style="width:300px;height:300px;"></div>
+    <div id="main2" class="chart" style="width:600px;height:300px;"></div>
+    <div id="main3" class="chart" style="width:600px;height:400px;"></div>
+    <script>
+      // 基于准备好的dom,初始化echarts实例
+      var ageChart = echarts.init(document.getElementById("main1"));
+      var sexChart = echarts.init(document.getElementById("main2"));
+      var huoyueChart = echarts.init(document.getElementById("main3"));
+      // 指定图表的配置项和数据,初始渲染
+      ageChart.setOption({
+        series: {
+          title: {
+            text: "用户年龄分布"
+          },
+          //   name: "访问来源",
+          type: "pie",
+          // color: ['#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C','#ff9f7f', '#fb7293', '#E062AE', '#E690D1', '#e7bcf3', '#9d96f5', '#8378EA', '#96BFFF'],
+          radius: "55%",
+          data: []
+        }
+      });
+      ageChart.showLoading();
+
+      sexChart.setOption({
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          orient: "vertical",
+          x: "left",
+          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+        },
+        series: [
+          {
+            name: "访问来源",
+            type: "pie",
+            color: [
+              "#37A2DA",
+              "#32C5E9",
+              "#67E0E3",
+              "#9FE6B8",
+              "#FFDB5C",
+              "#ff9f7f",
+              "#fb7293",
+              "#E062AE",
+              "#E690D1",
+              "#e7bcf3",
+              "#9d96f5",
+              "#8378EA",
+              "#96BFFF"
+            ],
+            radius: ["50%", "70%"],
+            avoidLabelOverlap: false,
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "30",
+                  fontWeight: "bold"
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              { value: 335, name: "直接访问" },
+              { value: 310, name: "邮件营销" },
+              { value: 234, name: "联盟广告" },
+              { value: 135, name: "视频广告" },
+              { value: 1548, name: "搜索引擎" }
+            ]
+          }
+        ]
+      });
+      huoyueChart.showLoading();      
+      huoyueChart.setOption({
+        dataset: {
+          source: []
+        },
+        grid: { containLabel: true },
+        xAxis: { name: "amount" },
+        yAxis: { type: "category" },
+        visualMap: {
+          orient: "horizontal",
+          left: "center",
+          min: 0,
+          max: 10,
+          text: ["High Rate", "Low Rate"],
+          // Map the score column to color
+          dimension: 0,
+          inRange: {
+            color: ["#D7DA8B", "#E15457"]
+          }
+        },
+        series: [
+          {
+            type: "bar",
+            encode: {
+              // Map the "amount" column to X axis.
+              x: "amount",
+              // Map the "product" column to Y axis
+              y: "username"
+            }
+          }
+        ]
+      });
+
+      //获取数据--
+      $.ajax({
+        url:
+          " https://www.easy-mock.com/mock/5d4cd7d1bc47ec5519acc3c1/getAll/userInfo",
+        method: "GET",
+        success: function(data) {
+          console.log(data);
+          if (data && data.code === 0) {
+            // var transferData =  handleMap(data.result.list);
+            // renderSex(data.result.list);
+            renderAge(data.result.list);
+            renderOnlineRate(data.result.list)
+          }
+        },
+        error: function(err) {
+          console.log(err.code, err.message);
+        }
+      });
+      /**对性别 兴趣做一下数据映射*/
+      /**sex  1-男 2-女
+            interest 1-10 对应interest的0-9下标对应的文字
+            */
+      var interests = [
+        "实时新闻",
+        "学习",
+        "电影",
+        "电视",
+        "B站",
+        "网易云",
+        "豆瓣类",
+        "八卦",
+        "追星",
+        "运动"
+      ];
+      function handleMap(data) {
+        data.forEach(function(item) {
+          item.sex = item.sex == 1 ? "男" : "女";
+          switch (item.interest) {
+            case 1:
+              item.interest = interests[0];
+              break;
+            case 2:
+              item.interest = interests[1];
+              break;
+            case 3:
+              item.interest = interests[2];
+              break;
+            case 4:
+              item.interest = interests[2];
+              break;
+            case 5:
+              item.interest = interests[4];
+              break;
+            case 6:
+              item.interest = interests[5];
+              break;
+            case 7:
+              item.interest = interests[6];
+              break;
+            case 8:
+              item.interest = interests[7];
+              break;
+            case 9:
+              item.interest = interests[8];
+              break;
+            case 10:
+              item.interest = interests[9];
+              break;
+          }
+        });
+        return data;
+      }
+
+      // 使用刚指定的配置项和数据显示图表。
+
+      function renderSex(data) {
+        // console.log(11111111111);
+        //统计男女比例数据
+        var countBoy = 0,
+          countGirl = 0;
+        data.forEach(function(item) {
+          item.sex == 1 ? countBoy++ : countGirl++;
+        });
+        ageChart.hideLoading();
+        //再次ageChart.setOption 渲染异步拿到的数据
+        ageChart.setOption({
+          series: {
+            data: [
+              { value: countBoy, name: "男" },
+              { value: countGirl, name: "女" }
+            ]
+          }
+        });
+        //加入loading动画，提高用户体验
+      }
+
+      function renderAge(data) {
+        var a = 0,
+          b = 0,
+          c = 0,
+          e = 0,
+          d = 0;
+        //   console.log(data[0].age)
+        data.forEach(function(item) {
+          if (item.age >= 15 && item.age <= 20) a++;
+          if (item.age >= 21 && item.age <= 28) b++;
+          if (item.age >= 29 && item.age <= 35) c++;
+          if (item.age >= 36 && item.age <= 45) d++;
+          if (item.age >= 47 && item.age <= 70) e++;
+        });
+        ageChart.hideLoading();
+        //  //再次ageChart.setOption 渲染异步拿到的数据
+        ageChart.setOption({
+          series: {
+            data: [
+              { value: a, name: "00后" },
+              { value: b, name: "10后" },
+              { value: c, name: "90后" },
+              { value: d, name: "80后" },
+              { value: e, name: "70后" }
+            ]
+          }
+        });
+      }
+    
+      function renderOnlineRate(data){
+        var resultArr = [["score", "amount", "username"]];
+        data.forEach(function(item){
+            var temp = [];
+            temp.push(item.onlineTimes,item.onlineTimes,item.userName)
+            resultArr.push(temp)
+        })
+        // console.log(resultArr)
+        huoyueChart.hideLoading();
+
+        huoyueChart.setOption({
+        dataset: {
+          source: resultArr
+        }
+      })
+      }
+    </script>
 </div>
