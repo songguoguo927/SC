@@ -1,7 +1,22 @@
 <!-- 用户管理 -->
 <div class="user-manage">
 	<!-- 用户管理 -->
-	<div class="userlist"></div>
+	<div class="userlist">
+		<div class="table-div">
+			<table class="table table-condensed">
+			  <thead>
+				<tr>
+				  <th class="">用户</th>
+				  <th class="">真实姓名</th>
+				  <th class="">注册时间</th>
+				  <th class="">email</th>
+				  <th class="">状态</th>
+				</tr>
+			  </thead>
+			  <tbody></tbody>
+			</table>
+		  </div>
+	</div>
 		
 
 
@@ -13,16 +28,39 @@
 			var userArr = result.data;
 			var str = '';
 			userArr.forEach(function(item){
-				str += `
-				<div class="user"><img src="./image/avatar-8.jpg" alt="" width="50">
-		<li><span>用户名:</span><span>${item.username}</span></li>
-		<li><span>真实姓名:</span><span>${item.nickname}</span></li>
-		<li><span>注册时间:</span><span>${item.regTime}</span></li>
-		<li><span>email:</span><span>${item.email}</span></li>
-		<li><span>状态:</span><span>${item.enabled}</span></li>	</div>`
+				str += `<tr data-id="${item.id}">
+						<td><img src="./image/avatar-8.jpg" alt="" width="40" class="img-circle"/>${item.username}</td>
+						<td>${item.nickname}</td>
+				 		<td>${item.name}</td>
+				 		<td>${item.email}</td>
+				 		<td>
+							<input type="checkbox" checked class="switch" value="${item.enabled}"/>
+						</td>				 		
+					</tr>`
 			})
-			$('.userlist').html(str)
+			$('.userlist tbody').html(str);
+			$(".switch").bootstrapSwitch({
+			onText:"ON",
+			offText:"OFF",
+			onColor:"success",
+			offColor:"primary",
+			size:"mini",
+			handleWidth:"25",
+			onSwitchChange:function(e,state){
+				console.log(state)
+			},			
+			//想让enabled为true的渲染成开的，false渲染成关的
+		})
+		// console.log($(".switch")) //类数组对象
+		$(".switch").filter(function(index,item){
+			// console.log(item.value)
+			return item.value == "true"
+		}).each(function(index,item){
+			// console.log(item)
+			$(item).bootstrapSwitch("state",true);
+		})
 		}
 	})
+	
 	</script>
 </div>
