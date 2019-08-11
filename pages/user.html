@@ -17,29 +17,29 @@
 			</table>
 		  </div>
 	</div>
-		
-
-
 	<script>
 	$.ajax({
 		url:"http://134.175.154.93:8099/manager/user/findAllUser",
 		success:function(result){
 			console.log(result.data)
-			var userArr = result.data;
-			var str = '';
-			userArr.forEach(function(item){
-				str += `<tr data-id="${item.id}">
-						<td><img src="./image/avatar-8.jpg" alt="" width="40" class="img-circle"/>${item.username}</td>
-						<td>${item.nickname}</td>
-				 		<td>${item.name}</td>
-				 		<td>${item.email}</td>
-				 		<td>
-							<input type="checkbox" checked class="switch" value="${item.enabled}"/>
-						</td>				 		
-					</tr>`
-			})
-			$('.userlist tbody').html(str);
-			$(".switch").bootstrapSwitch({
+			bindHtml(result.data)
+		}
+	})
+	function bindHtml(userArr){
+		var str = '';
+		userArr.forEach(function(item){
+			str += `<tr data-id="${item.id}">
+					<td><img src="./image/avatar-8.jpg" alt="" width="40" class="img-circle"/>${item.username}</td>
+					<td>${item.nickname}</td>
+					<td>${item.name}</td>
+					<td>${item.email}</td>
+					<td>
+						<input type="checkbox" checked class="switch" value="${item.enabled}"/>
+					</td>				 		
+				</tr>`
+		})
+		$('.userlist tbody').html(str);
+		$(".switch").bootstrapSwitch({
 			onText:"ON",
 			offText:"OFF",
 			onColor:"success",
@@ -48,10 +48,10 @@
 			handleWidth:"25",
 			onSwitchChange:function(e,state){
 				console.log(state)
-			},			
-			//想让enabled为true的渲染成开的，false渲染成关的
+			}
 		})
 		// console.log($(".switch")) //类数组对象
+		//想让enabled为true的渲染成开的，false渲染成关的
 		$(".switch").filter(function(index,item){
 			// console.log(item.value)
 			return item.value == "true"
@@ -59,8 +59,6 @@
 			// console.log(item)
 			$(item).bootstrapSwitch("state",true);
 		})
-		}
-	})
-	
+	}
 	</script>
 </div>

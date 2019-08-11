@@ -155,10 +155,15 @@ border: none;
 #addModal{
 	color:black;
 }
-.userlist{
-	display: flex;
-	flex-wrap: wrap;
+ .userlist img{
+	display: inline-block;
+	margin-left:10px;
+	margin-right:10px;
 }
-.user {
+/*.user {
     flex: 1 200px;
+} */
+.select{
+	width: 200px;
+	display: inline-block;
 }

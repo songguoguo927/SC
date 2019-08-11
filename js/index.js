@@ -1,7 +1,5 @@
-// 主js
-// 点击左侧导航，右侧出现对应内容
 $(function(){
-	$('.info-content').load('./pages/category.html');
+	$('.info-content').load('./pages/home.html');
 	$('.info-left li').click(function(){
 		// this-->li DOM
 		var title = $(this).text().trim();
