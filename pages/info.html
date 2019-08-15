@@ -340,8 +340,8 @@
     }
     //ids  数字数组 [1,2,3]
     function batchDelete(data) {
-      $.ajax({
-        url: "http://134.175.154.93:8099/manager/category/batchDeleteArticle",
+      $.ajax({//原来404接口写错了，傻布拉吉
+        url: "http://134.175.154.93:8099/manager/article/batchDeleteArticle",
         method: "post",
         data: data,
         success: function(res) {
